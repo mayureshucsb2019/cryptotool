@@ -1,0 +1,33 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Output of `go run`
+*.log
+
+# Go workspace stuff
+/bin/
+/build/
+/dist/
+
+# Vendor directory (if not using Go modules or vendoring manually)
+vendor/
+
+# Dependency directories (if you use tools like dep or glide)
+Gopkg.lock
+Gopkg.toml
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# Go modules cache
+/go.sum
