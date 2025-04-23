@@ -10,7 +10,9 @@ type GenerateKeyReq struct {
 }
 
 type GenerateKCVReq struct {
-	Key string `json:"Key"`
+	Key    string `json:"Key"`
+	Mode   string `json:"Mode"`
+	Cipher string `json:"Cipher"`
 }
 
 type GenerateKCVResp struct {
