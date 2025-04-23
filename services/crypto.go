@@ -1,6 +1,9 @@
 package services
 
 import (
+	"backend/utility"
+	"encoding/base64"
+
 	"github.com/sirupsen/logrus"
 )
 
@@ -19,6 +22,13 @@ func NewCryptoService(logger *logrus.Logger) *cryptoService {
 }
 
 func (cs *cryptoService) GenerateKey(size int, prng string) (string, error) {
-	cs.logger.Infof("Generating key ... size %d; prng %s", size, prng)
-	return "this is fake key", nil
+	key, err := utility.GenerateKey(size)
+	if err != nil {
+		cs.logger.WithFields(logrus.Fields{
+			"error ": err.Error(),
+		}).Info("parsing get parameters")
+		return "", err
+	}
+	base64Key := base64.StdEncoding.EncodeToString(key)
+	return base64Key, nil
 }

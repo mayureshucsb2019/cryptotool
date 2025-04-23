@@ -28,6 +28,12 @@ func NewCryptoHandler(logger *logrus.Logger, cs services.CryptoServiceInterface)
 
 func (ch *cryptoHandler) GenerateKey(w http.ResponseWriter, r *http.Request) {
 	size, err := strconv.Atoi(r.URL.Query().Get("size"))
+	if size != 64 && size != 128 && size != 192 && size != 256 {
+		http.Error(w, "size of key should be 64, 128, 192, 256 bits", http.StatusBadRequest)
+		ch.logger.Info("Key size not a multiple of 64 bits")
+		return
+	}
+
 	if err != nil {
 		http.Error(w, "please check the format of parameter size", http.StatusBadRequest)
 		ch.logger.WithFields(logrus.Fields{
