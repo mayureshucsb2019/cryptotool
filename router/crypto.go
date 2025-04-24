@@ -15,5 +15,6 @@ func CryptoRoutes(r *mux.Router, logger *logrus.Logger) {
 
 	r.HandleFunc("/generateKey", ch.GenerateKey).Methods("POST")
 	r.HandleFunc("/generateKCV", ch.GenerateKCV).Methods("POST")
+	r.HandleFunc("/xorComponents", ch.GenerateKCV).Methods("GET")
 
 }

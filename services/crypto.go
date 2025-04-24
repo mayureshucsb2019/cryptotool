@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type CryptoServiceInterface interface {
+type CryptoService interface {
 	GenerateKey(int, string) (string, error)
 	GenerateKCV(string, string, string) (string, error)
 }
@@ -31,8 +31,9 @@ func (cs *cryptoService) GenerateKey(size int, prng string) (string, error) {
 		}).Info("parsing get parameters")
 		return "", err
 	}
-	base64Key := base64.StdEncoding.EncodeToString(key)
-	return base64Key, nil
+	// base64Key := base64.StdEncoding.EncodeToString(key)
+	// return base64Key, nil
+	return fmt.Sprintf("%02x", key), nil
 }
 
 func (cs *cryptoService) GenerateKCV(key string, mode string, cipher string) (string, error) {

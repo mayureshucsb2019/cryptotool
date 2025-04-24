@@ -9,16 +9,16 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type CryptoHandlerInterface interface {
+type CryptoHandler interface {
 	GenerateKey(http.ResponseWriter, *http.Request)
 }
 
 type cryptoHandler struct {
-	cs     services.CryptoServiceInterface
+	cs     services.CryptoService
 	logger *logrus.Logger
 }
 
-func NewCryptoHandler(logger *logrus.Logger, cs services.CryptoServiceInterface) *cryptoHandler {
+func NewCryptoHandler(logger *logrus.Logger, cs services.CryptoService) *cryptoHandler {
 	return &cryptoHandler{
 		cs:     cs,
 		logger: logger,
@@ -90,4 +90,9 @@ func (ch *cryptoHandler) GenerateKCV(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.GenerateKCVResp{KCV: kcv})
+}
+
+func (ch *cryptoHandler) XORComponents(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	// json.NewEncoder(w).Encode()
 }
