@@ -14,7 +14,7 @@ func main() {
 	logger := logrus.New()
 	router.CryptoRoutes(r, logger)
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"localhost:3000"},
+		AllowedOrigins:   []string{"http://localhost:3000"},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST"},
 		Debug:            true,

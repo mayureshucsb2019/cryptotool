@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Tool</title>
+</head>
+<body>
+    <h1>Key Generator</h1>
+    <button onclick="generateKey()">Generate Key</button>
+    <pre id="keyOutput"></pre>
+
+    <h1>KCV Generator</h1>
+    <input id="keyInput" type="text" placeholder="Enter hex key">
+    <input id="modeInput" type="text" placeholder="Enter mode (ECB or CBC)">
+    <input id="cipherInput" type="text" placeholder="Enter cipher (AES)">
+    <button onclick="generateKCV()">Generate KCV</button>
+    <pre id="kcvOutput"></pre>
+
+    <script>
+        async function generateKey() {
+            const response = await fetch('http://localhost:8080/generateKey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Size: 128,
+                    PRNG: 'default'
+                })
+            });
+
+            const data = await response.json();
+            console.log("Key data:", data);
+            document.getElementById('keyOutput').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function generateKCV() {
+            const key = document.getElementById('keyInput').value;
+            const mode = document.getElementById('modeInput').value;
+            const cipher = document.getElementById('cipherInput').value;
+
+            const response = await fetch('http://localhost:8080/generateKCV', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Key: key,
+                    Mode: mode,
+                    Cipher: cipher
+                })
+            });
+
+            const data = await response.json();
+            console.log("KCV data:", data);
+            document.getElementById('kcvOutput').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
+
+
